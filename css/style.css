@@ -1,0 +1,18 @@
+*{margin:0px; padding: 0px;}
+body{
+    max-width: 1920px; height: 1080px;
+    background-color: cornsilk;
+    background-attachment: inherit;
+    background-image: url('../img/fondo.jpg');
+    background-position: left center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+main{
+    width: 1000px; height: 1000px;
+    margin: 80px auto 80px 200px;
+}
+
+section .articulo {
+    display: inline-block;
+}
