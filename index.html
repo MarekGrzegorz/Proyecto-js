@@ -11,54 +11,136 @@
 
 <body>
     <main id="main">
-        
-        <nav>
-            <ul>
-                <li>Pueros Espaciales
-                    <ul>
-                        <li>Cabo Cañaveral</li>
-                        <li>Baikonur</li>
-                        <li>Virgin Galactic</li>
-                        <li>Guayanés</li>
-                        <li>Wenchang</li>
-                        <li>Goddard</li>
-                        <li>Satish Dhawan</li>
-                    </ul>
-                </li>
-                <li>Destinos
-                <li>viajes ida y vuelta
-                    <ul>
-                        <li>Viajes al espacio</li>
-                        <li>Hotel espacial Geminis I</li>
-                        <li>Estación Espacial Internacional</li>
-                        <li>Tianhe Estación Espacial China</li>
-                        <li>Base Lunar</li>
-                    </ul>
-                </li>
-                <li>viajes solo ida
-                    <ul>
-                        <li>Marte</li>
-                        <li>Europa, la luna de Júpiter</li>
-                    </ul>
-                </li>
-                <li>Ofertas</li>
-                <li>Vuelos</li>
-                <li>Sobre nosotros
-                <li>Diseño
-                    <ul>
-                        <li>cambiar aspecto de pagina
-                            <ul>
-                                <li>thema 1</li>
-                                <li>thema 2</li>
-                            </ul>
-                        </li>
-                        <li>Sobre empresa</li>
-                    </ul>
-                </li>
-            </ul>
+        <nav id="ancho">
+            <div class="multi-level">
+                <ul id="navAncho">
+                    <li><a href="#"> Pueros Espaciales</a>
+                        <ul>
+                            <li><a href="#">Cabo Cañaveral</a></li>
+                            <li><a href="#">Baikonur</a></li>
+                            <li><a href="#">Virgin Galactic</a></li>
+                            <li><a href="#">Guayanés</a></li>
+                            <li><a href="#">Wenchang</a></li>
+                            <li><a href="#">Goddard</a></li>
+                            <li><a href="#">Satish Dhawan</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#"> Destinos</a>
+                        <ul>
+                            <li><a href="#"> viajes ida y vuelta</a>
+                                <ul>
+                                    <li><a href="#">Viajes al espacio</a></li>
+                                    <li><a href="#">Hotel espacial Geminis I</a></li>
+                                    <li><a href="#">Estación Espacial Internacional</a></li>
+                                    <li><a href="#">Tianhe Estación Espacial China</a></li>
+                                    <li><a href="#">Base Lunar</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#"> viajes solo ida</a>
+                                <ul>
+                                    <li><a href="#">Marte</a></li>
+                                    <li><a href="#">Europa, la luna de Júpiter</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="#"> Ofertas</a></li>
+                    <li><a href="#"> Vuelos</a></li>
+                    <li><a href="#"> Diseño</a>
+                        <ul>
+                            <li><a href="#">cambiar aspecto</a>
+                                <ul>
+                                    <li><a href="#">thema 1</a></li>
+                                    <li><a href="#">thema 2</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#">Sobre empresa</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div> 
         </nav>
+        <nav id="estrecho">
+            <input type="checkbox" id="menu">
+            <label for="menu" id="icon" style="background: #505160" >&#9776; index</label>
+
+            <div class="multi-level">
+                <div class="item">
+                    <input type="checkbox" id="A">
+                    <label for="A">Pueros Espaciales <span class="plus">[+]</span></label>
+
+                    <ul>
+                        <li><a href="#">Cabo Cañaveral</a></li>
+                        <li><a href="#">Baikonur</a></li>
+                        <li><a href="#">Virgin Galactic</a></li>
+                        <li><a href="#">Guayanés</a></li>
+                        <li><a href="#">Wenchang</a></li>
+                        <li><a href="#">Goddard</a></li>
+                        <li><a href="#">Satish Dhawan</a></li>
+                    </ul>
+                </div>
+                <div class="item">
+                    <input type="checkbox" id="B">
+                    <span class="plus">+</span><label for="B">Destinos <span class="plus">[+]</span></label>
+
+                    <ul>
+                        <li>
+                            <div class="sub-item">
+                                <input type="checkbox" id="B_1">
+                                <label for="B_1">viajes ida y vuelta <span class="plus">[+]</span></label>
+
+                                <ul>
+                                    <li><a href="#">Viajes al espacio</a></li>
+                                    <li><a href="#">Hotel espacial Geminis I</a></li>
+                                    <li><a href="#">Estación Espacial Internacional</a></li>
+                                    <li><a href="#">Tianhe Estación Espacial China</a></li>
+                                    <li><a href="#">Base Lunar</a></li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="sub-item">
+                                <input type="checkbox" id="B_2">
+                                <label for="B_2">viajes solo ida <span class="plus">[+]</span></label>
+                                <ul>
+                                    <li><a href="#">Marte</a></li>
+                                    <li><a href="#">Europa, la luna de Júpiter</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="item">
+                    <input type="checkbox" id="C">
+                    <label for="C">Ofertas</label>
+                </div>
+                <div class="item">
+                    <input type="checkbox" id="D">
+                    <label for="D">Vuelos</label>
+                </div>
+                <div class="item">
+                    <input type="checkbox" id="E">
+                    <label for="E">Diseño <span class="plus">[+]</span></label>
+                    <ul>
+                        <li>
+                            <div class="sub-item">
+                                <input type="checkbox" id="E_1">
+                                <label for="E_1">cambiar aspecto<span class="plus">[+]</span></label>
+                                <ul>
+                                    <li><a href="#">thema 1</a></li>
+                                    <li><a href="#">thema 2</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li><a href="#">Sobre empresa</a></li>
+                    </ul>
+                </div>
+            </div> 
+        </nav>
+
         <header>
-        
+
             <ul>
                 <li><img src="./img/img1.jpg" alt=""></li>
                 <li><img src="#" alt="buscar"></li>
@@ -66,6 +148,7 @@
                 <li>Mi cuenta</li>
                 <!--para registrarse-->
             </ul>
+            
             <div id="imagenDeAgencia"></div>
         </header>
 

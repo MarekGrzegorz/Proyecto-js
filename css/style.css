@@ -10,9 +10,165 @@ body{
 }
 main{
     width: 1000px; height: 1000px;
-    margin: 80px auto 80px 200px;
+    margin: 80px auto;
+    position: relative;
 }
 
-section .articulo {
-    display: inline-block;
+/*============== Styles nav ============*/
+@media (max-width: 800px){
+#navAncho {
+        visibility: hidden;
+        height: 0px;
+    }
+#estrecho{
+        width: 250px;
+        overflow: hidden;
+        position: absolute ;
+        font: 12px Arial, Helvetica, sans-serif;
+    }
+    
+#icon{
+        background-color: #505160;
+        height: 40px;
+        color: white;
+    }
+    
+#estrecho ul, #estrecho.li, #estrecho label {
+        background-color: #68829E;
+        line-height: 40px;
+        margin: 0px;
+        padding: 0px 2px;
+        list-style: none;
+        color: whitesmoke;
+        width: 250px;
+    }
+    
+#estrecho .item ul{
+        padding: 0px 0px 0px 25px;
+    }
+    
+#estrecho li a{
+        line-height: 40px;
+        margin: 0px;
+        padding: 0px 2px;
+        text-decoration: none;
+        color: whitesmoke;
+    }
+    
+.multi-level, .item ul, nav input[type="checkbox"]{
+        display: none;
+    }
+    
+#menu:checked ~ .multi-level, .item input:checked ~ ul {
+        display: block;
+        z-index: 110;
+    }
+    
+label:hover{
+        cursor: pointer;
+    }
+label{   
+        display: inline-block;
+        z-index: 110;
+        position: relative;
+        border-bottom: 1px solid rgb(3, 44, 44);
+    }
+    
+.plus {
+        position: absolute; left: 200px;
+    }
+}
+
+@media (min-width: 801px){
+#estrecho {
+        visibility: hidden;
+        height: 0px;
+    }
+#index_span {
+    visibility: hidden;
+}
+#ancho {
+    position: relative;
+    background: #505160;
+    text-align: center;
+}
+
+#navAncho a {
+        color: whitesmoke;
+    }
+#navAncho, #navAncho ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+#navAncho li {
+        position: relative;
+        width: 150px;
+    }
+#navAncho a {
+        padding: 10px 10px;
+        display: block;
+        text-decoration: none;
+    }
+#navAncho a:hover {
+        background: #000;
+    }
+    
+    
+    /* Level 1  */
+#navAncho > li {
+        display: inline-block;
+        vertical-align: top;
+        margin-left: 0px; 
+    }
+#navAncho > li:first-child {
+        margin-left: 0;
+    }
+
+/* Level 2 */
+#navAncho > li > ul {
+	text-align: left;
+	width: 180px; 
+	display: none;
+	background: #68829E;
+	position: absolute;
+	top: 100%;
+	left: 0;
+	z-index: 3;  
+}
+#navAncho > li:hover > ul {
+	display: block;
+}
+
+/* Level 3 */
+#navAncho > li > ul > li > ul {
+    text-align: left;
+    width: 180px;
+	display: none;
+	background: #68829E;
+	position: absolute;
+	left: 100%;
+	top: 0;
+	z-index: 3;
+}
+#navAncho > li > ul > li:hover > ul {
+	display: block;
+}
+#navAncho ul ul li {
+    padding: 0px;
+    width: 200px;}
+
+#navAncho ul ul li a:hover { background-color: black; width: 160px;}
+
+} 
+
+/*============== Styles nav ============*/
+header {
+    position: relative;
+    margin: 0px
+}
+
+header img {
+    position: absolute;
+    z-index: -1;
 }
