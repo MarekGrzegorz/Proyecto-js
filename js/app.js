@@ -114,8 +114,12 @@ class BoxPaginaPrincipal {
     }
 }
 
-let box1 = new BoxPaginaPrincipal('nuevo', 'img/tierra.jpg', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 400, 400)
-
+let box1 = new BoxPaginaPrincipal('nuevo1', 'img/tierra.jpg', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 25, 400)
+let box2 = new BoxPaginaPrincipal('nuevo2', 'img/tierra.jpg', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 350, 400)
+let box3 = new BoxPaginaPrincipal('nuevo3', 'img/tierra.jpg', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 675, 400)
+let box4 = new BoxPaginaPrincipal('nuevo4', 'img/tierra.jpg', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 25, 800)
+let box5 = new BoxPaginaPrincipal('nuevo5', 'img/tierra.jpg', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 350, 800)
+let box6 = new BoxPaginaPrincipal('nuevo6', 'img/tierra.jpg', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 675, 800)
 
 
 });    
