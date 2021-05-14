@@ -67,17 +67,53 @@ let ArticuloStyle = [
 
 // creacion de objeto BoxStyleX para clase articulo
 class BoxPaginaPrincipal {
-    constructor( id, imag, descripcion, precio, posicionX, posicionY){
+    sliders = '';
+    descripcionVenta = this.descripcion;
+    terminoViaje = '';
+    periodoPreparacion = '';
+    puertoSalida = '';
+    ventaFinal = '';
+    clicked() {
+        let Elem = document.createElement("div");
+        Elem.id = 'vent1';
+    
+        Elem.setAttribute("style",
+            `
+            width: 850px;  
+            height: 850px; 
+            background: green;
+            position: absolute; 
+            top: 40px; left: 25px;
+            border: 1px solid red;
+            z-index: 524;
+            `
+       );
+    
+       let ele = document.querySelector(`#s_1`);
+       ele.appendChild(Elem);
+    }
+  
+    constructor( id, imag, descripcion, precio, posicionX, posicionY, slid ,descripcionVenta = '',
+     fechaViaje = '',periodoPreparacion = '',puertoSalida = '',ventaFinal = ''){
+    // ventana pagina principal
+        this.boxViaje = document.querySelector('#viaje');
         this.id = id;
         this.imag = imag;
         this.descripcion = descripcion;
         this.precio = precio;
         this.posicionX = posicionX;
         this.posicionY = posicionY;
-        this.crea();
- 
+        this.creaVentana();
+     // ventana venta
+        this.sliders = slid;
+        this.descripcionVenta = descripcionVenta;
+        this.fechaViaje = fechaViaje;
+        this.periodoPreparacion = periodoPreparacion;
+        this.puertoSalida = puertoSalida;
+        this.ventaFinal = ventaFinal;
     }
 
+    // ventana principal
     createSubBox(){
         let x1 = new BoxStyleX( ...ArticuloStyle);
         producto(this.posicionX, this.posicionY, `${this.id}`, x1, '');
@@ -91,35 +127,133 @@ class BoxPaginaPrincipal {
         producto (0,0, `${this.id}_img`, x2,  '', 'image', `${this.id}`);
     }
     createDescription(){
-        let ImagenStyle = ArticuloStyle;
-        ImagenStyle[0] = '200';
-        ImagenStyle[1] = '80';
-        ImagenStyle[2] = `white`
-        let x3 = new BoxStyleX( ...ImagenStyle);
+        let desStyle = ArticuloStyle;
+        desStyle[0] = '200';
+        desStyle[1] = '80';
+        desStyle[2] = `white`
+        let x3 = new BoxStyleX( ...desStyle);
         producto ('25','220', `${this.id}_msg`, x3,`${this.descripcion}`, 'msg', `${this.id}`);
     }
     createPrecio(){
-        let ImagenStyle = ArticuloStyle;
-        ImagenStyle[0] = '90px';
-        ImagenStyle[1] = '50px';
-        ImagenStyle[2] = `white`
-        let x4 = new BoxStyleX( ...ImagenStyle);
+        let precioStyle = ArticuloStyle;
+        precioStyle[0] = '90px';
+        precioStyle[1] = '50px';
+        precioStyle[2] = `white`
+        let x4 = new BoxStyleX( ...precioStyle);
         producto ('200','250', `${this.id}_precio`, x4, `${this.precio}`, 'precio', `${this.id}`);
     }
-    async crea(){
+    async creaVentana(){
         await this.createSubBox();
-        this.createImageBox();
-        this.createDescription();
-        this.createPrecio();
+        await this.createImageBox();
+        await this.createDescription();
+        await this.createPrecio();
     }
+    // ventana de venta ---------------------------
+     set setSliders (slider){ this.sliders = slider;  }
+     set setTerminoViaje (tv){ this.terminoViaje = tv; }
+     set setPeriodoPreparacion (pP) { this.periodoPreparacion = pP; }
+     set setPuertoSalida (puerto) { this.puertoSalida = puerto; }
+     set setDescVenta (msgVenta){  this.descripcionVenta = msgVenta; } 
+     get getVentaFinal (){ return this.ventaFinal; }
+     get getSliders () {return this.sliders; }
+
+//-------ventana de venta metodos -----------------------
+
+    creaVenta (){
+        this.boxViaje.setAttribute("style",
+            `
+            width: 850px;  
+            height: 750px; 
+            background: white;
+            position: absolute;
+            top: 40px; left: 25px;
+            border: 1px solid red;
+            z-index: 524;
+            `
+       )
+       this.creaVentaSlid();
+       this.creaVentaText();
+       this.creaVentaPrecio();
+    }
+    creaVentaSlid (){
+       let ventSlid = this.boxViaje.appendChild(document.createElement('div'))
+       ventSlid.setAttribute("style",
+           `
+               width: 800px;  
+               height: 450px; 
+               position: relative;left: 25px;
+               background-image: url('${this.sliders[0]}'),
+               url('${this.sliders[1]}'),
+               url('${this.sliders[2]}');
+               background-repeat: no-repeat;
+               animation: videoBox 30s infinite alternate;      
+               `)
+    }
+    creaVentaText (){
+        let ventText = this.boxViaje.appendChild(document.createElement('div'))
+       ventText.id = `${this.idVenta}_text`
+       ventText.setAttribute("style",
+           `   width: 400px;  
+               height: 200px; 
+               line-height: 30px;
+               position: absolute ;left: 25px; top: 500px;  `)
+        ventText.innerHTML += (`<p>${this.descripcionVenta}</p>
+        <p>Fecha de viaje: ${this.fecha}</p>
+        <p>Periodo de preparacion: ${this.periodoPreparacion}</p>
+        <p>Puerto Espacial: ${this.puertoSalida}</p>
+        `);
+    }
+
+    creaVentaPrecio (){
+    let ventPrecio = this.boxViaje.appendChild(document.createElement('div'))
+       ventPrecio.id = `${this.idVenta}_precio`
+       ventPrecio.setAttribute("style",
+           `   width: 400px;  
+               height: 200px; 
+               line-height: 30px;
+               position: absolute ;
+               left: 425px; top: 500px;  `)
+        ventPrecio.innerHTML = (`     
+        <form id="cant_1">
+        <label for="cant">Cantidad:</label>
+        <input id="cant" name="cant" type="number" value="1">
+        <input id="lop" type="button" value="Submit">
+        </form>  `)
+     }
+
 }
 
-let box1 = new BoxPaginaPrincipal('nuevo1', 'img/tierra.jpg', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 25, 400)
-let box2 = new BoxPaginaPrincipal('nuevo2', 'img/tierra.jpg', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 350, 400)
-let box3 = new BoxPaginaPrincipal('nuevo3', 'img/tierra.jpg', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 675, 400)
-let box4 = new BoxPaginaPrincipal('nuevo4', 'img/tierra.jpg', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 25, 800)
-let box5 = new BoxPaginaPrincipal('nuevo5', 'img/tierra.jpg', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 350, 800)
+// constructor( id, imag, descripcion, precio, posicionX, posicionY, sliders = '',descripcionVenta = '',
+//      fechaViaje = '',periodoPreparacion = '',puertoSalida = '',ventaFinal = '')
+let text = 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, veniam. Odio quae modi sequi corrupti beatae, '
+let box1 = new BoxPaginaPrincipal('nuevo1', 'img/tierra.jpg', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 25, 400,['img/mars1.jpg','img/mars2.jpg','img/mars3.jpg'],
+text, '14 mayo 2023', '4 semanas'  )
+let box2 = new BoxPaginaPrincipal('nuevo2', 'img/tierra.jpg', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 350, 400,['img/mars1.jpg','img/mars2.jpg','img/mars3.jpg'])
+let box3 = new BoxPaginaPrincipal('nuevo3', 'img/tierra.jpg', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 675, 400,['img/mars1.jpg','img/mars2.jpg','img/mars3.jpg'])
+let box4 = new BoxPaginaPrincipal('nuevo4', 'img/tierra.jpg', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 25, 800,['img/mars1.jpg','img/mars2.jpg','img/mars3.jpg'])
+let box5 = new BoxPaginaPrincipal('nuevo5', 'img/tierra.jpg', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 350, 800,['img/mars1.jpg','img/mars2.jpg','img/mars3.jpg'])
 let box6 = new BoxPaginaPrincipal('nuevo6', 'img/tierra.jpg', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 675, 800)
 
+function deleteVentana(){
+    let v_x =  document.querySelector('#viaje');
+
+    if(v_x !== null){
+       while (v_x.hasChildNodes()){
+           v_x.removeChild(v_x.lastChild);
+       }
+    v_x.setAttribute("style", 'visibility: hidden')   
+   }
+}
+
+document.getElementById(box1.id).addEventListener ('click' , viaje )
+async function viaje (){
+    await box1.creaVenta();
+    const button = document.querySelector('#lop');
+    button.addEventListener('click', function(){
+    console.log(`Cantidad: ${document.forms.cant_1[0].value}, precio: ${box1.precio},descripcion: ${box1.descripcion} `)
+    deleteVentana();
+    }); 
+
+}
 
 });    
