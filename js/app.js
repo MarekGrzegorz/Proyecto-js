@@ -163,10 +163,10 @@ class BoxPaginaPrincipal {
         this.boxViaje.setAttribute("style",
             `
             width: 850px;  
-            height: 750px; 
+            height: 700px; 
             background: white;
             position: absolute;
-            top: 40px; left: 25px;
+            top: 0px; left: 25px;
             border: 1px solid red;
             z-index: 524;
             `
@@ -226,13 +226,13 @@ class BoxPaginaPrincipal {
 // constructor( id, imag, descripcion, precio, posicionX, posicionY, sliders = '',descripcionVenta = '',
 //      fechaViaje = '',periodoPreparacion = '',puertoSalida = '',ventaFinal = '')
 let text = 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, veniam. Odio quae modi sequi corrupti beatae, '
-let box1 = new BoxPaginaPrincipal('nuevo1', 'img/tierra.jpg', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 25, 400,['img/mars1.jpg','img/mars2.jpg','img/mars3.jpg'],
+let box1 = new BoxPaginaPrincipal('nuevo1', 'img/tierra.jpg', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 25, 50)
+let box2 = new BoxPaginaPrincipal('nuevo2', 'img/iss.png', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 350, 50,['img/iss1.png','img/iss2.png','img/iss3.png'])
+let box3 = new BoxPaginaPrincipal('nuevo3', 'img/spacecraft.png', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 675, 50,['img/spacecraft1.png','img/spacecraft2.png','img//spacecraft3.png'],
 text, '14 mayo 2023', '4 semanas'  )
-let box2 = new BoxPaginaPrincipal('nuevo2', 'img/tierra.jpg', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 350, 400,['img/mars1.jpg','img/mars2.jpg','img/mars3.jpg'])
-let box3 = new BoxPaginaPrincipal('nuevo3', 'img/tierra.jpg', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 675, 400,['img/mars1.jpg','img/mars2.jpg','img/mars3.jpg'])
-let box4 = new BoxPaginaPrincipal('nuevo4', 'img/tierra.jpg', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 25, 800,['img/mars1.jpg','img/mars2.jpg','img/mars3.jpg'])
-let box5 = new BoxPaginaPrincipal('nuevo5', 'img/tierra.jpg', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 350, 800,['img/mars1.jpg','img/mars2.jpg','img/mars3.jpg'])
-let box6 = new BoxPaginaPrincipal('nuevo6', 'img/tierra.jpg', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 675, 800)
+let box4 = new BoxPaginaPrincipal('nuevo4', 'img/moon.png', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 25, 400,['img/moon1.png','img/moon2.png','img/moon3.png'])
+let box5 = new BoxPaginaPrincipal('nuevo5', 'img/mars.png', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 350, 400,['img/mars1.png','img/mars2.png','img/mars3.png'])
+let box6 = new BoxPaginaPrincipal('nuevo6', 'img/tierra.jpg', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 675, 400)
 
 function deleteVentana(){
     let v_x =  document.querySelector('#viaje');
@@ -245,15 +245,31 @@ function deleteVentana(){
    }
 }
 
-document.getElementById(box1.id).addEventListener ('click' , viaje )
-async function viaje (){
+document.getElementById(box1.id).addEventListener ('dblclick' , viaje1)
+document.getElementById(box2.id).addEventListener ('dblclick' , viaje2)
+document.getElementById(box3.id).addEventListener ('dblclick' , viaje3) 
+async function viaje1 (){
     await box1.creaVenta();
     const button = document.querySelector('#lop');
     button.addEventListener('click', function(){
     console.log(`Cantidad: ${document.forms.cant_1[0].value}, precio: ${box1.precio},descripcion: ${box1.descripcion} `)
     deleteVentana();
-    }); 
-
+    });
 }
-
+async function viaje2 (){
+    await box2.creaVenta();
+    const button = document.querySelector('#lop');
+    button.addEventListener('click', function(){
+    console.log(`Cantidad: ${document.forms.cant_1[0].value}, precio: ${box2.precio},descripcion: ${box2.descripcion} `)
+    deleteVentana();
+    });
+}
+async function viaje3 (){
+    await box3.creaVenta();
+    const button = document.querySelector('#lop');
+    button.addEventListener('click', function(){
+    console.log(`Cantidad: ${document.forms.cant_1[0].value}, precio: ${box3.precio},descripcion: ${box3.descripcion} `)
+    deleteVentana();
+    });
+}
 });    
