@@ -248,6 +248,8 @@ function deleteVentana(){
 document.getElementById(box1.id).addEventListener ('dblclick' , viaje1)
 document.getElementById(box2.id).addEventListener ('dblclick' , viaje2)
 document.getElementById(box3.id).addEventListener ('dblclick' , viaje3) 
+document.getElementById(box4.id).addEventListener ('dblclick' , viaje4) 
+document.getElementById(box5.id).addEventListener ('dblclick' , viaje5) 
 async function viaje1 (){
     await box1.creaVenta();
     const button = document.querySelector('#lop');
@@ -272,4 +274,21 @@ async function viaje3 (){
     deleteVentana();
     });
 }
+async function viaje4 (){
+    await box4.creaVenta();
+    const button = document.querySelector('#lop');
+    button.addEventListener('click', function(){
+    console.log(`Cantidad: ${document.forms.cant_1[0].value}, precio: ${box4.precio},descripcion: ${box4.descripcion} `)
+    deleteVentana();
+    });
+}
+async function viaje5 (){
+    await box5.creaVenta();
+    const button = document.querySelector('#lop');
+    button.addEventListener('click', function(){
+    console.log(`Cantidad: ${document.forms.cant_1[0].value}, precio: ${box5.precio},descripcion: ${box5.descripcion} `)
+    deleteVentana();
+    });
+}
+
 });    
