@@ -52,7 +52,7 @@ main{
         margin: 0px;
         padding: 0px 2px;
         text-decoration: none;
-        color: whitesmoke;
+        color: #fdfff5;
     }
     
 .multi-level, .item ul, nav input[type="checkbox"]{
@@ -94,7 +94,7 @@ label{
 }
 
 #navAncho a {
-        color: whitesmoke;
+        color: #fdfff5;
     }
 #navAncho, #navAncho ul {
         list-style: none;
@@ -201,3 +201,21 @@ section {
 .articulo{
     box-shadow: 8px 8px 5px aliceblue ;
 }
+#cant{
+    padding: 10px;
+    width: 45px;
+}
+#lop{
+    height: 40px; width: 240px;
+    background-color: rgb(0, 53,0);
+    border: 2px solid green;
+    color:  #fdfff5;
+    letter-spacing: 1px;
+    text-align: center;
+    display: block;
+    margin-top: 10px;
+}
+#precio{
+    float:right;
+}
+

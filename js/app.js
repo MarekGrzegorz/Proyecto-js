@@ -73,25 +73,7 @@ class BoxPaginaPrincipal {
     periodoPreparacion = '';
     puertoSalida = '';
     ventaFinal = '';
-    clicked() {
-        let Elem = document.createElement("div");
-        Elem.id = 'vent1';
-    
-        Elem.setAttribute("style",
-            `
-            width: 850px;  
-            height: 850px; 
-            background: green;
-            position: absolute; 
-            top: 40px; left: 25px;
-            border: 1px solid red;
-            z-index: 524;
-            `
-       );
-    
-       let ele = document.querySelector(`#s_1`);
-       ele.appendChild(Elem);
-    }
+
   
     constructor( id, imag, descripcion, precio, posicionX, posicionY, slid ,descripcionVenta = '',
      fechaViaje = '',periodoPreparacion = '',puertoSalida = '',ventaFinal = ''){
@@ -136,11 +118,11 @@ class BoxPaginaPrincipal {
     }
     createPrecio(){
         let precioStyle = ArticuloStyle;
-        precioStyle[0] = '90px';
+        precioStyle[0] = '100px';
         precioStyle[1] = '50px';
         precioStyle[2] = `white`
         let x4 = new BoxStyleX( ...precioStyle);
-        producto ('200','250', `${this.id}_precio`, x4, `${this.precio}`, 'precio', `${this.id}`);
+        producto ('190','250', `${this.id}_precio`, x4, `${this.thousands_separators( this.precio[0])}${this.precio[1]}`, 'precio', `${this.id}`);
     }
     async creaVentana(){
         await this.createSubBox();
@@ -158,12 +140,17 @@ class BoxPaginaPrincipal {
      get getSliders () {return this.sliders; }
 
 //-------ventana de venta metodos -----------------------
+    thousands_separators(num){
+    var num_parts = num.toString().split(".");
+    num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+    return num_parts.join(" ");
+    }
 
     creaVenta (){
         this.boxViaje.setAttribute("style",
             `
             width: 850px;  
-            height: 700px; 
+            height: 720px; 
             background: white;
             position: absolute;
             top: 0px; left: 25px;
@@ -171,9 +158,18 @@ class BoxPaginaPrincipal {
             z-index: 524;
             `
        )
+       this.creaCloseWin();
        this.creaVentaSlid();
        this.creaVentaText();
        this.creaVentaPrecio();
+    }
+    creaCloseWin(){
+        let ventClose = this.boxViaje.appendChild(document.createElement('span'))
+        ventClose.setAttribute("style", `
+            position: absolute; right: 2px; top: 0px;
+            cursor: pointer; `)
+        ventClose.id = 'closeWin';
+        ventClose.innerText = '[x]';
     }
     creaVentaSlid (){
        let ventSlid = this.boxViaje.appendChild(document.createElement('div'))
@@ -190,105 +186,147 @@ class BoxPaginaPrincipal {
                `)
     }
     creaVentaText (){
-        let ventText = this.boxViaje.appendChild(document.createElement('div'))
-       ventText.id = `${this.idVenta}_text`
-       ventText.setAttribute("style",
-           `   width: 400px;  
+        const ventText = this.boxViaje.appendChild(document.createElement('div'))
+        ventText.id = `${this.idVenta}_text`
+        ventText.setAttribute("style",
+            `   width: 800px;  
+                height: 60px; 
+                line-height: 30px;
+                position: absolute ;left: 25px; top: 470px;  `)
+       ventText.innerHTML += (`<p style="position: absolute">${this.descripcionVenta}</p>`)
+       const ventTextRest = this.boxViaje.appendChild(document.createElement('div'))
+       ventTextRest.id = `${this.idVenta}_text2`
+       ventTextRest.setAttribute("style",
+           `   width: 600px;  
                height: 200px; 
                line-height: 30px;
-               position: absolute ;left: 25px; top: 500px;  `)
-        ventText.innerHTML += (`<p>${this.descripcionVenta}</p>
-        <p>Fecha de viaje: ${this.fecha}</p>
-        <p>Periodo de preparacion: ${this.periodoPreparacion}</p>
-        <p>Puerto Espacial: ${this.puertoSalida}</p>
+               position: absolute ;left: 25px; top: 570px;  `)
+        ventTextRest.innerHTML += (`
+        <table>
+        <tr>
+            <td>Fecha de viaje:</td>
+            <td style= "padding-left: 25px;">${this.fechaViaje}</td>
+        </tr>
+        <tr>
+            <td>Periodo de preparacion:</td>
+            <td style= "padding-left: 25px;">${this.periodoPreparacion}</td>
+        </tr>
+        <tr>
+            <td>Puerto Espacial:</td>
+            <td style= "padding-left: 25px;">${this.puertoSalida}</td>
+        </tr>
+    </table>
         `);
     }
 
     creaVentaPrecio (){
-    let ventPrecio = this.boxViaje.appendChild(document.createElement('div'))
-       ventPrecio.id = `${this.idVenta}_precio`
+    let ventPrecio = this.boxViaje.appendChild(document.createElement('div'));
+       ventPrecio.id = `${this.idVenta}_precio`;
+    function thousands_separators(num){
+        var num_parts = num.toString().split(".");
+        num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+        return num_parts.join(" ");
+      }
+
        ventPrecio.setAttribute("style",
-           `   width: 400px;  
+           `   width: 300px;  
                height: 200px; 
                line-height: 30px;
                position: absolute ;
-               left: 425px; top: 500px;  `)
+               left: 480px; top: 600px;  `)
         ventPrecio.innerHTML = (`     
         <form id="cant_1">
-        <label for="cant">Cantidad:</label>
-        <input id="cant" name="cant" type="number" value="1">
+        <label for="cant">Personas:</label>
+        <select name="cant" id="cant" required>
+        <option selected>1</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        </select>
+        <p id="precio">Precio: <span id="PrecioCalc">${thousands_separators(this.precio[0])}</span>€<span id="PrecioUn" style="visibility: hidden;">${this.precio[0]}</span></p>
         <input id="lop" type="button" value="Submit">
         </form>  `)
-     }
 
+        document.getElementById("cant").onchange = function() {
+            let prec = document.getElementById("cant").value * parseInt(document.getElementById("PrecioUn").textContent);
+            document.getElementById("PrecioCalc").innerText = thousands_separators(prec);
+        };
+     }
 }
 
+const text1 = ["<h3> Viaje al espacio</h3><p style='padding-top: 10px;'>China</p>",
+            ["15000","€ /pers"], ['img/iss1.png','img/iss2.png','img/iss3.png'],
+            "El 12 de abril de 1961 se lanzó la nave espacial Vostok 3KA-3 (Vostok 1) desde el \
+            Cosmódromo de Baikonur con Yuri Gagarin a bordo, el primer humano en viajar al espacio.",
+            '14 - 20 agosto 2021', '1 semanas', 'Centro de Lanzamiento de Wenchang ' ]
+const text2 = ["<h3>International Space Station</h3><p style='padding-top: 10px;'>Federación de Rusia</p>",
+            ["54000","€ /pers"], ['img/iss1.png','img/iss2.png','img/iss3.png'],
+            "El 30 de abril de 2001, el millonario estadounidense Dennis Tito llegó a la Estación Espacial Internacional \
+            (EEI) a través de un cohete ruso Soyuz, convirtiéndose en el primer turista espacial del mundo.",
+            '21 - 28 octubre 2021', '2 semanas', 'Байконур' ]
+const text3 = ["<h3>Voyager Station</h3><p style='padding-top: 10px;'>Estados Unidos</p>",
+            ["152000","€ /pers"], ['img/spacecraft1.png','img/spacecraft2.png','img//spacecraft3.png'],
+            "We're trying to make the public realize that this golden age of space travel is just around the \
+            corner. It's coming. It's coming fast. Una experiencia de gran lujo y exclusiva a los primeros 400 huéspedes que disfruten su estancia.", 
+            '1 - 10 agosto 2025', '2 semanas', 'Blue Origin' ]
+const text4 = ["<h3>Luna</h3><p style='padding-top: 10px;'>Estados Unidos</p>",
+            ["91000","€ /pers"], ['img/moon1.png','img/moon2.png','img/moon3.png'],
+            "Apolo 11 fue una misión espacial tripulada de Estados Unidos.El comandante Armstrong fue el primer ser humano que pisó la superficie del \
+            satélite terrestre el 21 de julio de 1969 al sur del Mar de la Tranquilidad, seis horas y media después de haber alunizado.",
+            '15 - 27 febrero 2022', '2 semanas', 'NASA' ]
+const text5 = ["<h3>Marte</h3><p style='padding-top: 10px;'>Estados Unidos</p>",
+            ["220000","€ /pers"], ['img/mars1.png','img/mars2.png','img/mars3.png'],
+            "El primer estudio técnico detallado de un viaje a Marte fue de Wernher von Braun, quien publicó El Proyecto Marte en el año 1952. La idea era \
+            enviar una flota de diez naves con 70 tripulantes cada una, que llevarían tres aeronaves con alas que aterrizarían en Marte tal cual un avión comercial",
+            '27 diciembre 2022', '1 año', 'SpaceX' ]    
+const text6 = ["<h3>Titulo</h3><p style='padding-top: 10px;'>Unión Europea</p>",
+            ["50000","€ /pers"], ['img/iss1.png','img/iss2.png','img/iss3.png'],
+            "",
+            '27 mayo 2022', '1 año', 'European Space Agency' ]         
 // constructor( id, imag, descripcion, precio, posicionX, posicionY, sliders = '',descripcionVenta = '',
 //      fechaViaje = '',periodoPreparacion = '',puertoSalida = '',ventaFinal = '')
-let text = 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, veniam. Odio quae modi sequi corrupti beatae, '
-let box1 = new BoxPaginaPrincipal('nuevo1', 'img/tierra.jpg', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 25, 50)
-let box2 = new BoxPaginaPrincipal('nuevo2', 'img/iss.png', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 350, 50,['img/iss1.png','img/iss2.png','img/iss3.png'])
-let box3 = new BoxPaginaPrincipal('nuevo3', 'img/spacecraft.png', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 675, 50,['img/spacecraft1.png','img/spacecraft2.png','img//spacecraft3.png'],
-text, '14 mayo 2023', '4 semanas'  )
-let box4 = new BoxPaginaPrincipal('nuevo4', 'img/moon.png', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 25, 400,['img/moon1.png','img/moon2.png','img/moon3.png'])
-let box5 = new BoxPaginaPrincipal('nuevo5', 'img/mars.png', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 350, 400,['img/mars1.png','img/mars2.png','img/mars3.png'])
-let box6 = new BoxPaginaPrincipal('nuevo6', 'img/tierra.jpg', '<h3>titel</h3><p>dlafjlsdfjlasl</p>', '50 000', 675, 400)
+const box1 = new BoxPaginaPrincipal('nuevo1', 'img/tierra.jpg', text1[0], text1[1], 25, 50,text1[2], text1[3], text1[4], text1[5], text1[6]);
+const box2 = new BoxPaginaPrincipal('nuevo2', 'img/iss.png', text2[0], text2[1], 350, 50,text2[2], text2[3], text2[4], text2[5], text2[6]);
+const box3 = new BoxPaginaPrincipal('nuevo3', 'img/spacecraft.png', text3[0], text3[1], 675, 50,text3[2], text3[3], text3[4], text3[5], text3[6]);
+const box4 = new BoxPaginaPrincipal('nuevo4', 'img/moon.png', text4[0], text4[1], 25, 400,text4[2], text4[3], text4[4], text4[5], text4[6]);
+const box5 = new BoxPaginaPrincipal('nuevo5', 'img/mars.png', text5[0], text5[1], 350, 400,text5[2], text5[3], text5[4], text5[5], text5[6]);
+const box6 = new BoxPaginaPrincipal('nuevo6', 'img/tierra.jpg', text6[0], text6[1], 675, 400,text6[2], text6[3], text6[4], text6[5], text6[6]);
+
+let VentanaAbierta = false;
 
 function deleteVentana(){
     let v_x =  document.querySelector('#viaje');
-
     if(v_x !== null){
        while (v_x.hasChildNodes()){
            v_x.removeChild(v_x.lastChild);
        }
     v_x.setAttribute("style", 'visibility: hidden')   
    }
+   VentanaAbierta = false;
+}
+function viaje (box){
+    VentanaAbierta = true
+    document.getElementById('closeWin').addEventListener ('click' , deleteVentana)
+    const button = document.querySelector('#lop');
+    button.addEventListener('click', function(){
+    console.log(`Cantidad: ${document.forms.cant_1[0].value}, precio: ${box.precio},descripcion: ${box.descripcion} `)
+    deleteVentana();
+    });
 }
 
-document.getElementById(box1.id).addEventListener ('dblclick' , viaje1)
-document.getElementById(box2.id).addEventListener ('dblclick' , viaje2)
-document.getElementById(box3.id).addEventListener ('dblclick' , viaje3) 
-document.getElementById(box4.id).addEventListener ('dblclick' , viaje4) 
-document.getElementById(box5.id).addEventListener ('dblclick' , viaje5) 
-async function viaje1 (){
-    await box1.creaVenta();
-    const button = document.querySelector('#lop');
-    button.addEventListener('click', function(){
-    console.log(`Cantidad: ${document.forms.cant_1[0].value}, precio: ${box1.precio},descripcion: ${box1.descripcion} `)
-    deleteVentana();
-    });
-}
-async function viaje2 (){
-    await box2.creaVenta();
-    const button = document.querySelector('#lop');
-    button.addEventListener('click', function(){
-    console.log(`Cantidad: ${document.forms.cant_1[0].value}, precio: ${box2.precio},descripcion: ${box2.descripcion} `)
-    deleteVentana();
-    });
-}
-async function viaje3 (){
-    await box3.creaVenta();
-    const button = document.querySelector('#lop');
-    button.addEventListener('click', function(){
-    console.log(`Cantidad: ${document.forms.cant_1[0].value}, precio: ${box3.precio},descripcion: ${box3.descripcion} `)
-    deleteVentana();
-    });
-}
-async function viaje4 (){
-    await box4.creaVenta();
-    const button = document.querySelector('#lop');
-    button.addEventListener('click', function(){
-    console.log(`Cantidad: ${document.forms.cant_1[0].value}, precio: ${box4.precio},descripcion: ${box4.descripcion} `)
-    deleteVentana();
-    });
-}
-async function viaje5 (){
-    await box5.creaVenta();
-    const button = document.querySelector('#lop');
-    button.addEventListener('click', function(){
-    console.log(`Cantidad: ${document.forms.cant_1[0].value}, precio: ${box5.precio},descripcion: ${box5.descripcion} `)
-    deleteVentana();
-    });
-}
+document.getElementById(box1.id).addEventListener ('click' , viaje1)
+document.getElementById(box2.id).addEventListener ('click' , viaje2)
+document.getElementById(box3.id).addEventListener ('click' , viaje3) 
+document.getElementById(box4.id).addEventListener ('click' , viaje4) 
+document.getElementById(box5.id).addEventListener ('click' , viaje5) 
+document.getElementById(box6.id).addEventListener ('click' , viaje6) 
+
+async function viaje1 (){ if (VentanaAbierta){await deleteVentana();}; await box1.creaVenta(); viaje(box1); }
+async function viaje2 (){ if (VentanaAbierta){await deleteVentana();}; await box2.creaVenta(); viaje(box2); }
+async function viaje3 (){ if (VentanaAbierta){await deleteVentana();}; await box3.creaVenta(); viaje(box3); }
+async function viaje4 (){ if (VentanaAbierta){await deleteVentana();}; await box4.creaVenta(); viaje(box4); }
+async function viaje5 (){ if (VentanaAbierta){await deleteVentana();}; await box5.creaVenta(); viaje(box5); }
+async function viaje6 (){ if (VentanaAbierta){await deleteVentana();}; await box6.creaVenta(); viaje(box6); }
+
 
 });    
