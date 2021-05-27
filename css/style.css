@@ -10,9 +10,30 @@ body{
 }
 main{
     width: 1000px; height:100px;  
-    margin: 80px auto;
+    margin: 0px auto;
     position: relative;
 }
+
+#navBody{
+    width: 1000px;
+    height: 30px;
+    background-color: #505160;;
+    margin: 15px auto 0px
+}
+#navBody ul{
+    list-style: none;
+}
+#navBody li{
+    color: whitesmoke;
+    float: right;
+    padding: 0px 30px;
+    cursor: pointer;
+}
+#car {
+    position: relative;
+}
+#car span{ font-size: 20px; position: absolute; left: 35px;}
+#navBody .icon{ margin-top: 4px;}
 
 /*============== Styles nav ============*/
 @media (max-width: 800px){
@@ -152,11 +173,12 @@ label{
 	z-index: 3;
 }
 #navAncho > li > ul > li:hover > ul {
-	display: block;
+    display: block;
 }
 #navAncho ul ul li {
     padding: 0px;
-    width: 200px;}
+    width: 200px;
+}
 
 #navAncho ul ul li a:hover { background-color: black; width: 160px;}
 
@@ -167,7 +189,9 @@ header {
     position: relative;
     margin: 0px
 }
-
+header h1{
+	z-index: -1;
+}
 header img {
     position: absolute;
     z-index: -1;
@@ -218,4 +242,9 @@ section {
 #precio{
     float:right;
 }
-
+header ul{
+    list-style: none;
+}
+#carrito {
+    position: absolute; top: 50px; left: 100px;
+}

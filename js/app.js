@@ -292,9 +292,16 @@ const box4 = new BoxPaginaPrincipal('nuevo4', 'img/moon.png', text4[0], text4[1]
 const box5 = new BoxPaginaPrincipal('nuevo5', 'img/mars.png', text5[0], text5[1], 350, 400,text5[2], text5[3], text5[4], text5[5], text5[6]);
 const box6 = new BoxPaginaPrincipal('nuevo6', 'img/tierra.jpg', text6[0], text6[1], 675, 400,text6[2], text6[3], text6[4], text6[5], text6[6]);
 
+// carrito de compra
+
 let VentanaAbierta = false;
 
+document.getElementById('car').addEventListener('click', carritoDecompraFunc);
+let carritoDecompraCont = document.querySelector ('#car span')
+let carrito = new Array();
+let carritoDecompraContador = 0;
 function deleteVentana(){
+    document.getElementById('closeWin').removeEventListener ('click' , deleteVentana)
     let v_x =  document.querySelector('#viaje');
     if(v_x !== null){
        while (v_x.hasChildNodes()){
@@ -306,12 +313,67 @@ function deleteVentana(){
 }
 function viaje (box){
     VentanaAbierta = true
+    VentanaAbiertaId = '#viaje';
     document.getElementById('closeWin').addEventListener ('click' , deleteVentana)
     const button = document.querySelector('#lop');
     button.addEventListener('click', function(){
-    console.log(`Cantidad: ${document.forms.cant_1[0].value}, precio: ${box.precio},descripcion: ${box.descripcion} `)
-    deleteVentana();
+        carritoDecompraContador++;
+        carritoDecompraCont.innerText = carritoDecompraContador;
+        carrito.push([['Cantidad', document.forms.cant_1[0].value], ['precio', box.precio],['descripcion', box.descripcion], ['imagen', box.imag], ['fecha', box.fechaViaje]])
+        deleteVentana();
     });
+}
+
+function thousands_sep(num){
+    var num_parts = num.toString().split(".");
+    num_parts[0] = num_parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+    return num_parts.join(" ");
+  }
+
+function carritoDecompraFunc(){
+
+    let precioTotal = 0;
+    let miCarrito = document.querySelector('body');
+    let elem = document.createElement('div');
+    elem.id = 'caro';
+    miCarrito.appendChild(elem)
+    // cerrar caro
+    elem.innerHTML += `<span id="carroCl" style="position: absolute; right: 10px; top: 5px; cursor: pointer;">[x]</span>`
+
+    elem.setAttribute("style", ` 
+    width: 1000px; 
+    line-height: 30px;
+    position: absolute ;
+    left: 10px; top: 10px; 
+    background: white;   
+    `)
+ 
+    if (carrito.length == 0){
+        elem.innerHTML += '<div style="height: 200px; padding: 50px; font-size: 20px"> Carrito esta vacio </div>';
+    }else{
+    for (let xi = 0; xi < carrito.length; xi++){
+    precioTotal += carrito[xi][0][1] * carrito[xi][1][1][0];
+    elem.innerHTML += `<table style="width:100%; margin: 20px; text-align: justify;">
+    <tr>
+    <th style = "width: 15%";><img style="height: 80px; display: inline-block" src="${carrito[xi][3][1]}" alt=""></th>
+    <th style = "width: 26%";> ${carrito[xi][2][1]}</th>
+    <th style = "width: 15%";> Precio: ${thousands_sep(carrito[xi][1][1][0])} €</th>
+    <th style = "width: 26%";> <p>Personas: ${carrito[xi][0][1]}</p><p>Fecha: ${carrito[xi][4][1]}</p></th>
+    <th style = "width: 18%";> Total: ${thousands_sep(carrito[xi][0][1] * carrito[xi][1][1][0])} €</th>
+    </tr>
+    <hr/>
+   `
+    }
+    elem.innerHTML += `<hr/><div style="text-align: right; font-weight: 600; font-size: 16px; padding: 20px 25px 15px 0px;">Precio final: ${thousands_sep(precioTotal)} €</div> `
+    }
+    document.getElementById("carroCl").addEventListener("click", function(){
+        if(elem !== null){
+           while (elem.hasChildNodes()){
+               elem.removeChild(elem.lastChild);
+           }
+        }
+        elem.setAttribute("style", 'visibility: hidden') 
+    })
 }
 
 document.getElementById(box1.id).addEventListener ('click' , viaje1)
